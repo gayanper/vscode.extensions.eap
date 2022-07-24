@@ -56,4 +56,4 @@ jobs:
       
       - name: Deploy vscode-java
         if: ${{ github.ref == 'refs/heads/main' }}
-        run: ./scripts/upload-to-cloudsmith.sh ./extensions/vscode-java/$(ls *.vsix)
+        run: ./scripts/upload-to-cloudsmith.sh $(ls ./extensions/vscode-java/*.vsix)
