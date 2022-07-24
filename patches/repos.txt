@@ -1,0 +1,2 @@
+vscode-java=https://github.com/redhat-developer/vscode-java.git
+eclipse.jdt.ls=https://github.com/eclipse/eclipse.jdt.ls.git

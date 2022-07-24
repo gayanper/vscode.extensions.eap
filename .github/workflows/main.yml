@@ -1,0 +1,51 @@
+name: Build and Deploy
+
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 6 * * *'
+
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+
+      - name: Setup Maven
+        uses: stCarolas/setup-maven@v4.3
+        with:
+          maven-version: 3.6.3
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.4.1
+        with:
+          node-version: v16.16.0
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "workflows@egithub.com"
+          git config --global user.name "workflows@egithub.com"
+
+      - name: Checkout modules
+        run: ./scripts/checkout-modules.sh
+
+      - name: Merge PRs
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: ./scripts/merge-prs.sh
+
+      - name: Build vscode-java patch
+        run: ./scripts/build-vscode-java.sh
+      
+      - name: Deploy vscode-java
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: ./scripts/upload-to-cloudsmith.sh ./extensions/vscode-java/$(ls *.vsix)
