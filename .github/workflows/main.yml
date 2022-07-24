@@ -55,5 +55,7 @@ jobs:
         run: ./scripts/build-vscode-java.sh
       
       - name: Deploy vscode-java
+        env: 
+          CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
         if: ${{ github.ref == 'refs/heads/main' }}
         run: ./scripts/upload-to-cloudsmith.sh $(ls ./extensions/vscode-java/*.vsix)
