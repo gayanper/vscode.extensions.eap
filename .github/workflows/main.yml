@@ -51,7 +51,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: ./scripts/merge-prs.sh
 
-      - name: Build vscode-java patch
+      - name: Build vscode-java
         run: ./scripts/build-vscode-java.sh
       
       - name: Deploy vscode-java
@@ -59,3 +59,12 @@ jobs:
           CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
         if: ${{ github.ref == 'refs/heads/main' }}
         run: ./scripts/upload-to-cloudsmith.sh $(ls ./extensions/vscode-java/*.vsix)
+
+      - name: Build vscode-java-debug
+        run: ./scripts/build-vscode-java-debug.sh
+      
+      - name: Deploy vscode-java-debug
+        env: 
+          CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: ./scripts/upload-to-cloudsmith.sh $(ls ./extensions/vscode-java-debug/*.vsix)
