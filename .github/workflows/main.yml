@@ -71,3 +71,12 @@ jobs:
           CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
         if: ${{ github.ref == 'refs/heads/main' }}
         run: ./scripts/upload-to-cloudsmith.sh $(ls ./extensions/vscode-java-debug/*.vsix)
+
+      - name: Build vscode-java-test
+        run: ./scripts/build-vscode-java-test.sh
+      
+      - name: Deploy vscode-java-test
+        env: 
+          CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: ./scripts/upload-to-cloudsmith.sh $(ls ./extensions/vscode-java-test/*.vsix)
