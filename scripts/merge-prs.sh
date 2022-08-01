@@ -1,8 +1,14 @@
 #!/bin/bash
 function cherry_pick_pr {
     echo "Applying PR # : $1"
+    mainBranch=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+    gh pr checkout $1 -b b$1 && git switch $mainBranch
 
-    gh pr diff --patch $1 | git am .
+    if [[ $? -ne 0 ]]; then
+        echo "::error:: Fail to checkout PR: $1 , ignoring."
+    fi
+
+    git merge b$1
     
     if [[ $? -ne 0 ]]; then
         # try to reset test code and see if the conflicts go away
@@ -14,10 +20,10 @@ function cherry_pick_pr {
 
         if [[ -z $(git ls-files --unmerged) ]]; then
             git commit --no-edit
-            echo "::debug:: Recovered from a conflict while applying: $1 $2."
+            echo "::debug:: Recovered from a conflict while applying: $1."
         else    
             git reset --hard
-            echo "::warning:: Detected a conflict while applying: $1 $2, ignoring patch."
+            echo "::warning:: Detected a conflict while applying: $1, ignoring patch."
         fi
     fi       
 }
