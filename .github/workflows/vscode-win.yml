@@ -1,0 +1,48 @@
+name: vscode-win
+
+on:
+  workflow_dispatch:
+    
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Add Node to PATH
+      uses: actions/setup-node@v3.4.1
+      with:
+        node-version: v16.16.0
+        
+    - name: Setup jq environment
+      uses: urgn/setup-jq-action@v3.0.2
+  
+    - name: Install prereq
+      run: ./scripts/vs.install-prereq.sh
+
+    - name: Checkout vscode
+      run: ./scripts/vs.checkout.sh
+
+    - name: Merge vscode prs
+      run: ./scripts/vs.merge-pr.sh
+
+    - name: Update product file
+      run: ./scripts/vs.update_product.sh
+
+    - name: Buid vscode user setup
+      run: ./scripts/vs.build-win.sh
+
+    - name: Deploy vscode user setup
+      env: 
+        CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
+      if: ${{ github.ref == 'refs/heads/main' }}
+      run: ./scripts/upload-to-cloudsmith.sh $(ls ./vscode/.build/win32-x64/user-setup/VSCodeSetup.exe)     
+        
