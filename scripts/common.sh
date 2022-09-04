@@ -56,3 +56,18 @@ function cherry_pick_pr {
     fi       
 }
 
+# Start VSCodium 
+# from https://github.com/VSCodium/vscodium/blob/master/prepare_vscode.sh
+function setpath() {
+  { set +x; } 2>/dev/null
+  echo "$( cat "${1}.json" | jq --arg 'path' "${2}" --arg 'value' "${3}" 'setpath([$path]; $value)' )" > "${1}.json"
+  set -x
+}
+
+function setpath_json() {
+  { set +x; } 2>/dev/null
+  echo "$( cat "${1}.json" | jq --arg 'path' "${2}" --argjson 'value' "${3}" 'setpath([$path]; $value)' )" > "${1}.json"
+  set -x
+}
+
+# End VSCodium
