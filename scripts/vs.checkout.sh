@@ -2,4 +2,4 @@
 repo="https://github.com/microsoft/vscode.git"
 dir="vscode"
 
-git clone $repo $dir && git -C $2 checkout $(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+git clone $repo $dir && git -C $dir checkout $(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
