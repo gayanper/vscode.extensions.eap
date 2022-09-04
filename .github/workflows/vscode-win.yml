@@ -9,7 +9,10 @@ permissions:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-2019
+    defaults:
+      run:
+        shell: bash
 
     steps:
     - uses: actions/checkout@v3
@@ -32,9 +35,7 @@ jobs:
       run: ./scripts/vs.merge-pr.sh
 
     - name: Update product file
-      uses: awesome-global-contributions/action-yq@v1.0.2
-      with:
-        file: ./scripts/vs.update_product.sh
+      run: ./scripts/vs.update_product.sh
 
     - name: Buid vscode user setup
       run: ./scripts/vs.build-win.sh
