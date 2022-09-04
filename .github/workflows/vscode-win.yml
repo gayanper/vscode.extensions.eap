@@ -22,9 +22,6 @@ jobs:
       with:
         node-version: v16.16.0
         
-    - name: Setup jq environment
-      uses: urgn/setup-jq-action@v3.0.2
-  
     - name: Install prereq
       run: ./scripts/vs.install-prereq.sh
 
@@ -35,7 +32,9 @@ jobs:
       run: ./scripts/vs.merge-pr.sh
 
     - name: Update product file
-      run: ./scripts/vs.update_product.sh
+      uses: awesome-global-contributions/action-yq@v1.0.2
+      with:
+        file: ./scripts/vs.update_product.sh
 
     - name: Buid vscode user setup
       run: ./scripts/vs.build-win.sh
