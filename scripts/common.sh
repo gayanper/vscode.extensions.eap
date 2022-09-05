@@ -1,6 +1,7 @@
 #!/bin/bash
 function read_repos {
     read_repos_val=()
+    fixlines $1
     local file_path=$1
     while IFS='=' read -r key value || [ -n "$key" ]
     do
@@ -12,11 +13,18 @@ function read_repos {
 
 function read_refs {
     read_refs_val=()
+    fixlines $1
     local file_path=$1
     while IFS= read -r ref || [ -n "$ref" ]
     do
         read_refs_val+=("$ref")
     done < "$file_path"
+}
+
+function fixlines {
+    mv $1 $1.src && \
+    tr -d '\r' < $1.src > $1 && \
+    rm $1.src
 }
 
 function read_key {
@@ -36,7 +44,7 @@ function cherry_pick_pr {
         echo "::error:: Fail to checkout PR: $1 , ignoring."
     fi
 
-    git merge b$1
+    git merge b$1 --no-edit
     
     if [[ $? -ne 0 ]]; then
         # try to reset test code and see if the conflicts go away
