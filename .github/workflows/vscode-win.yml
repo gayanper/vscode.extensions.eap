@@ -50,5 +50,5 @@ jobs:
       env: 
         CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
       if: ${{ github.ref == 'refs/heads/main' }}
-      run: ./scripts/upload-to-cloudsmith.sh $(ls ./vscode/.build/win32-x64/user-setup/*.exe)     
+      run: ./scripts/upload-to-cloudsmith.sh $(ls ./vscode/.build/win32-x64/archive/*.zip)     
         
