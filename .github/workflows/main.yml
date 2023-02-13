@@ -6,12 +6,18 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  schedule:
-    - cron: '0 6 * * *'
 
   # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:      
-
+  workflow_dispatch:
+    inputs:
+      module:
+        description: Choose a module
+        required: true
+        type: choice
+        options:
+          - "vscode-java"
+          - "vscode-java-debug"
+          - "vscode-java-test"
 jobs:
   # This workflow contains a single job called "build"
   build:
@@ -56,27 +62,30 @@ jobs:
 
       - name: Build vscode-java
         run: ./scripts/build-vscode-java.sh
+        if: ${{ inputs.module == 'vscode-java' }}
       
       - name: Deploy vscode-java
         env: 
           CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/main' && inputs.module == 'vscode-java' }}
         run: ./scripts/upload-to-cloudsmith.sh $(ls ./extensions/vscode-java/*.vsix)
 
       - name: Build vscode-java-debug
         run: ./scripts/build-vscode-java-debug.sh
+        if: ${{ inputs.module == 'vscode-java-debug' }}
       
       - name: Deploy vscode-java-debug
         env: 
           CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/main' && inputs.module == 'vscode-java-debug' }}
         run: ./scripts/upload-to-cloudsmith.sh $(ls ./extensions/vscode-java-debug/*.vsix)
 
       - name: Build vscode-java-test
         run: ./scripts/build-vscode-java-test.sh
+        if: ${{ inputs.module == 'vscode-java-test' }}
       
       - name: Deploy vscode-java-test
         env: 
           CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/main' && inputs.module == 'vscode-java-test' }}
         run: ./scripts/upload-to-cloudsmith.sh $(ls ./extensions/vscode-java-test/*.vsix)
