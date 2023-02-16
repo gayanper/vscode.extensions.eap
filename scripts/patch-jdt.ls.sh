@@ -21,7 +21,7 @@ cd $script_dir/../patch-wkdir
 
 if [ ! -d ./eap-site ]; then
     echo "## Clone updatesite"
-    git clone git@github.com:gayanper/org.gap.eclipse.jdt.eap.git --branch gh-pages --depth 1 ./eap-site
+    git clone https://github.com/gayanper/org.gap.eclipse.jdt.eap.git --branch gh-pages --depth 1 ./eap-site
 fi
 
 for fileregex in "${FILE_PATTERNS[@]}"
