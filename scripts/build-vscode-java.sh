@@ -13,7 +13,7 @@ sed -i '' "s/${current_version}/${new_version}/" "package.json"
 npm install && npm run build-server && ./../../scripts/patch-jdt.ls.sh \
 && npx gulp download_lombok && \
 npx gulp download_jre --target darwin-arm64 --javaVersion 17 \
-&& vsce package -o "java-$new_version.vsix"
+&& vsce package
 
 cd ./../../
 echo "## Building vscode-java done"
