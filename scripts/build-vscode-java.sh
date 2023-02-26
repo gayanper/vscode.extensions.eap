@@ -13,7 +13,7 @@ new_version="${version%.*}.$(date +%y%m%d%H%M%S)"
 # sed -i '' "s/${current_version}/${new_version}/" "package.json"
 
 # Linux
-sed -i 's/\"version\":.*/\"version\": '${new_version}'/g' "package.json"
+sed -i 's/"version":"[^"]*/"version": "${new_version}/g' "package.json"
 
 
 npm install && npm run build-server && ./../../scripts/patch-jdt.ls.sh \
