@@ -1,6 +1,5 @@
 #!/bin/bash
-declare -a FILE_PATTERNS=(".*/org\.eclipse\.jdt\.core_.*\.jar" ".*/org\.eclipse\.jdt\.core.\manipulation_.*\.jar"
-".*/org\.eclipse\.jdt\.core\.compiler\.batch_.*\.jar")
+declare -a FILE_PATTERNS=(".*/org\.eclipse\.jdt\..*_.*\.jar")
 
 function patch_file {
     pattern=$1
