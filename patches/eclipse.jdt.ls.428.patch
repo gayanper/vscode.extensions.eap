@@ -48,10 +48,10 @@ index 1f1a40f0..a108e1b9 100644
   org.eclipse.jdt.ls.core.internal;x-friends:="org.eclipse.jdt.ls.tests,org.eclipse.jdt.ls.tests.syntaxserver",
   org.eclipse.jdt.ls.core.internal.cleanup;x-friends:="org.eclipse.jdt.ls.tests",
 diff --git a/org.eclipse.jdt.ls.target/org.eclipse.jdt.ls.tp.target b/org.eclipse.jdt.ls.target/org.eclipse.jdt.ls.tp.target
-index a8836e19..e86f5252 100644
+index a8836e19..d53e01f2 100644
 --- a/org.eclipse.jdt.ls.target/org.eclipse.jdt.ls.tp.target
 +++ b/org.eclipse.jdt.ls.target/org.eclipse.jdt.ls.tp.target
-@@ -29,11 +29,11 @@
+@@ -29,16 +29,20 @@
              <unit id="org.eclipse.jdt.source.feature.group" version="0.0.0"/>
              <unit id="org.eclipse.sdk.feature.group" version="0.0.0"/>
              <unit id="org.mockito.mockito-core" version="0.0.0"/>
@@ -65,8 +65,12 @@ index a8836e19..e86f5252 100644
          </location>
          <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
             <repository location="https://download.eclipse.org/lsp4j/updates/releases/0.20.0/"/>
-@@ -41,4 +41,4 @@
+            <unit id="org.eclipse.lsp4j" version="0.0.0"/>
          </location>
++	    <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
++		    <repository location="https://github.com/gayanper/org.gap.eclipse.jdt.eap/raw/gh-pages/p2/i-builds"/>
++		    <unit id="org.gap.eclipse.jdt.eap.patch.feature.feature.group" version="0.0.0"/>
++	    </location>
      </locations>
      <targetJRE path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17"/>
 -</target>
