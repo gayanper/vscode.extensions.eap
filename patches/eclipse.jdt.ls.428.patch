@@ -47,6 +47,19 @@ index 1f1a40f0..a108e1b9 100644
  Export-Package: org.eclipse.jdt.ls.core.contentassist;x-friends:="org.eclipse.jdt.ls.tests",
   org.eclipse.jdt.ls.core.internal;x-friends:="org.eclipse.jdt.ls.tests,org.eclipse.jdt.ls.tests.syntaxserver",
   org.eclipse.jdt.ls.core.internal.cleanup;x-friends:="org.eclipse.jdt.ls.tests",
+diff --git a/org.eclipse.jdt.ls.core/src/org/eclipse/jdt/ls/core/internal/cleanup/StringConcatToTextBlockCleanUp.java b/org.eclipse.jdt.ls.core/src/org/eclipse/jdt/ls/core/internal/cleanup/StringConcatToTextBlockCleanUp.java
+index b3c2440b..221019d2 100644
+--- a/org.eclipse.jdt.ls.core/src/org/eclipse/jdt/ls/core/internal/cleanup/StringConcatToTextBlockCleanUp.java
++++ b/org.eclipse.jdt.ls.core/src/org/eclipse/jdt/ls/core/internal/cleanup/StringConcatToTextBlockCleanUp.java
+@@ -43,7 +43,7 @@ public class StringConcatToTextBlockCleanUp implements ISimpleCleanUp {
+ 		if (unit == null) {
+ 			return null;
+ 		}
+-		return StringConcatToTextBlockFixCore.createCleanUp(unit);
++		return StringConcatToTextBlockFixCore.createCleanUp(unit, false);
+ 	}
+ 
+ 	/* (non-Javadoc)
 diff --git a/org.eclipse.jdt.ls.target/org.eclipse.jdt.ls.tp.target b/org.eclipse.jdt.ls.target/org.eclipse.jdt.ls.tp.target
 index a8836e19..d53e01f2 100644
 --- a/org.eclipse.jdt.ls.target/org.eclipse.jdt.ls.tp.target
