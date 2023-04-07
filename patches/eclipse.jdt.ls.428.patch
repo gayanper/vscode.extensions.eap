@@ -1,5 +1,5 @@
 diff --git a/org.eclipse.jdt.ls.core/META-INF/MANIFEST.MF b/org.eclipse.jdt.ls.core/META-INF/MANIFEST.MF
-index 1f1a40f0..0f459778 100644
+index 1f1a40f0..6f91c667 100644
 --- a/org.eclipse.jdt.ls.core/META-INF/MANIFEST.MF
 +++ b/org.eclipse.jdt.ls.core/META-INF/MANIFEST.MF
 @@ -8,29 +8,29 @@ Bundle-RequiredExecutionEnvironment: JavaSE-17
@@ -7,26 +7,27 @@ index 1f1a40f0..0f459778 100644
  Import-Package: org.osgi.framework;version="1.3.0"
  Bundle-ActivationPolicy: lazy
 -Require-Bundle: org.eclipse.core.runtime;bundle-version="3.12.0",
-+Require-Bundle: org.eclipse.core.runtime,
++Require-Bundle: org.eclipse.core.runtime;bundle-version="3.27.0",
   org.eclipse.core.resources,
   org.eclipse.core.net,
   org.eclipse.debug.core,
   org.eclipse.jdt.core,
   org.eclipse.ltk.core.refactoring,
 - org.eclipse.text;bundle-version="3.6.0",
-+ org.eclipse.text,
++ org.eclipse.text;bundle-version="3.13.0",
   org.eclipse.m2e.core;resolution:=optional,
   org.eclipse.m2e.jdt;resolution:=optional,
 - org.eclipse.core.filebuffers;bundle-version="3.6.0",
-+ org.eclipse.core.filebuffers,
++ org.eclipse.core.filebuffers;bundle-version="3.8.0",
   org.eclipse.m2e.maven.runtime;resolution:=optional,
 - org.eclipse.buildship.core;bundle-version="1.0.18";resolution:=optional,
-+ org.eclipse.buildship.core;resolution:=optional,
++ org.eclipse.buildship.core;bundle-version="3.1.7";resolution:=optional,
   org.eclipse.jdt.launching,
   org.eclipse.jdt.apt.core,
 - org.eclipse.jdt.core.manipulation;bundle-version="1.8.0",
-+ org.eclipse.jdt.core.manipulation,
-  com.google.gson;bundle-version="2.7.0",
+- com.google.gson;bundle-version="2.7.0",
++ org.eclipse.jdt.core.manipulation;bundle-version="1.19.0",
++ com.google.gson;bundle-version="2.10.1",
   org.apache.commons.lang3;bundle-version="3.1.0",
   org.eclipse.lsp4j;bundle-version="[0.20.0.0,0.21.0)",
   org.eclipse.lsp4j.jsonrpc;bundle-version="[0.20.0,0.21.0)",
@@ -34,9 +35,9 @@ index 1f1a40f0..0f459778 100644
 - org.eclipse.core.filesystem;bundle-version="1.7.0",
 - org.eclipse.jdt.apt.pluggable.core;bundle-version="1.2.0";resolution:=optional,
 - org.eclipse.m2e.apt.core;bundle-version="1.3.0";resolution:=optional
-+ org.eclipse.core.filesystem,
-+ org.eclipse.jdt.apt.pluggable.core;resolution:=optional,
-+ org.eclipse.m2e.apt.core;resolution:=optional
++ org.eclipse.core.filesystem;bundle-version="1.10.0",
++ org.eclipse.jdt.apt.pluggable.core;bundle-version="1.4.0";resolution:=optional,
++ org.eclipse.m2e.apt.core;bundle-version="2.2.0";resolution:=optional
  Export-Package: org.eclipse.jdt.ls.core.contentassist;x-friends:="org.eclipse.jdt.ls.tests",
   org.eclipse.jdt.ls.core.internal;x-friends:="org.eclipse.jdt.ls.tests,org.eclipse.jdt.ls.tests.syntaxserver",
   org.eclipse.jdt.ls.core.internal.cleanup;x-friends:="org.eclipse.jdt.ls.tests",
