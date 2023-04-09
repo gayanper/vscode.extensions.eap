@@ -17,7 +17,9 @@ function read_refs {
     local file_path=$1
     while IFS= read -r ref || [ -n "$ref" ]
     do
-        read_refs_val+=("$ref")
+        if [[ $ref != \#* ]]; then
+            read_refs_val+=("$ref")
+        fi
     done < "$file_path"
 }
 
@@ -62,6 +64,21 @@ function cherry_pick_pr {
             echo "::warning:: Detected a conflict while applying: $1, ignoring patch."
         fi
     fi       
+}
+
+function apply_git_patches_by_regex {
+    echo "Apply git patch files for repo $2"
+    patch_pattern=$1"/patches/"$2"*.patch"
+
+    for p in $(ls $patch_pattern 2>/dev/null)
+    do
+        echo "Applying patch file $p"
+        git apply --apply $p && git add . && git commit -m "Patch $p"
+        if [[ $? -ne 0 ]]; then
+            echo "::error:: Fail to apply patch: $p"
+            exit 100
+        fi        
+    done
 }
 
 # Start VSCodium 

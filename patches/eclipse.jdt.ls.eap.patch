@@ -1,0 +1,19 @@
+diff --git a/org.eclipse.jdt.ls.target/org.eclipse.jdt.ls.tp.target b/org.eclipse.jdt.ls.target/org.eclipse.jdt.ls.tp.target
+index e0d87efc..8982dcfd 100644
+--- a/org.eclipse.jdt.ls.target/org.eclipse.jdt.ls.tp.target
++++ b/org.eclipse.jdt.ls.target/org.eclipse.jdt.ls.tp.target
+@@ -40,10 +40,9 @@
+            <unit id="org.eclipse.lsp4j" version="0.0.0"/>
+         </location>
+ 	    <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+-		    <repository location="https://download.eclipse.org/eclipse/updates/4.27-P-builds/"/>
+-		    <unit id="org.eclipse.jdt.java20patch.feature.group" version="1.2.300.v20230322-1359_BETA_JAVA20"/>
+-		    <unit id="org.eclipse.jdt.java20patch.source.feature.group" version="1.2.300.v20230322-1359_BETA_JAVA20"/>
++		    <repository location="https://github.com/gayanper/org.gap.eclipse.jdt.eap/raw/gh-pages/p2/i-builds"/>
++		    <unit id="org.gap.eclipse.jdt.eap.patch.feature.feature.group" version="0.0.0"/>
+ 	    </location>
+     </locations>
+     <targetJRE path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17"/>
+-</target>
++</target>
+\ No newline at end of file
