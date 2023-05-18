@@ -15,7 +15,7 @@ new_version="${version%.*}.$(date +%y%m%d%H%M%S)"
 # Linux
 sed -i "s/$current_version/$new_version/g" "./extension/package.json"
 
-./gradlew build -x test && vsce package
+./gradlew build -x test && cd ./extension && vsce package && cd ../
 
 cd ./../../
 echo "## Building vscode-gradle done"
