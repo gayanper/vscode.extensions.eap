@@ -89,3 +89,13 @@ jobs:
           CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
         if: ${{ github.ref == 'refs/heads/main' && inputs.module == 'vscode-java-test' }}
         run: ./scripts/upload-to-cloudsmith.sh $(ls ./extensions/vscode-java-test/*.vsix)
+
+      - name: Build vscode-gradle
+        run: ./scripts/build-vscode-gradle.sh
+        if: ${{ inputs.module == 'vscode-gradle' }}
+      
+      - name: Deploy vscode-gradle
+        env: 
+          CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
+        if: ${{ github.ref == 'refs/heads/main' && inputs.module == 'vscode-gradle' }}
+        run: ./scripts/upload-to-cloudsmith.sh $(ls ./extensions/vscode-gradle/extension/*.vsix)
