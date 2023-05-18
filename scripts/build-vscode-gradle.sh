@@ -3,8 +3,6 @@
 echo "## Building vscode-gradle"
 cd ./extensions/vscode-gradle
 
-rm -f ./extension/package-lock.json
-
 version=$(grep version -m1 ./extension/package.json | sed 's/.*"version": "\(.*\)".*/\1/')
 current_version=$version
 new_version="${version%.*}.$(date +%y%m%d%H%M%S)"
