@@ -18,6 +18,7 @@ on:
           - "vscode-java"
           - "vscode-java-debug"
           - "vscode-java-test"
+          - "vscode-gradle"
 jobs:
   # This workflow contains a single job called "build"
   build:
