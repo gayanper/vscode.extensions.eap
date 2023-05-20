@@ -13,7 +13,7 @@ new_version="${version%.*}.$(date +%y%m%d%H%M%S)"
 # Linux
 sed -i "s/$current_version/$new_version/g" "package.json"
 
-npm install && npm package
+npm install && npm run package
 
 cd ./../../
 echo "## Building vscode-spotless-gradle done"
