@@ -19,6 +19,7 @@ on:
           - "vscode-java-debug"
           - "vscode-java-test"
           - "vscode-gradle"
+          - "vscode-spotless-gradle"
 jobs:
   # This workflow contains a single job called "build"
   build:
@@ -100,3 +101,13 @@ jobs:
           CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
         if: ${{ github.ref == 'refs/heads/main' && inputs.module == 'vscode-gradle' }}
         run: ./scripts/upload-to-cloudsmith.sh $(ls ./extensions/vscode-gradle/extension/*.vsix)
+
+      - name: Build vscode-spotless-gradle
+        run: ./scripts/build-vscode-spotless.sh
+        if: ${{ inputs.module == 'vscode-spotless-gradle' }}
+      
+      - name: Deploy vscode-spotless-gradle
+        env: 
+          CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
+        if: ${{ github.ref == 'refs/heads/main' && inputs.module == 'vscode-spotless-gradle' }}
+        run: ./scripts/upload-to-cloudsmith.sh $(ls ./extensions/vscode-spotless-gradle/*.vsix)
