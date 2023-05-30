@@ -14,6 +14,13 @@ on:
           - "vscode-java-test"
           - "vscode-gradle"
           - "vscode-spotless-gradle"
+
+      ignore_merge_conflicts:
+        description: 'Ignore merge conflicts and continue'
+        required: false
+        type: boolean
+        default: false
+
 jobs:
   # This workflow contains a single job called "build"
   build:
@@ -54,7 +61,7 @@ jobs:
       - name: Merge PRs
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: ./scripts/merge-prs.sh
+        run: ./scripts/merge-prs.sh ${{ github.event.inputs.ignore_merge_conflicts }}
 
       - name: Build vscode-java
         run: ./scripts/build-vscode-java.sh

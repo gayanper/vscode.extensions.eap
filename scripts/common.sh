@@ -61,7 +61,12 @@ function cherry_pick_pr {
             echo "::debug:: Recovered from a conflict while applying: $1."
         else    
             git reset --hard
-            echo "::warning:: Detected a conflict while applying: $1, ignoring patch."
+            # $2 ignore merge conflicts
+            if [ "$2" == "true" ]; then
+                echo "::warning:: Detected a conflict while applying: $1, ignoring patch."
+            else
+                echo "::error:: Detected a conflict while applying: $1, ignoring patch."
+            fi
         fi
     fi       
 }
