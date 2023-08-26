@@ -112,3 +112,9 @@ jobs:
           CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
         if: ${{ github.ref == 'refs/heads/main' && inputs.module == 'vscode-spotless-gradle' }}
         run: ./scripts/upload-to-cloudsmith.sh $(ls ./extensions/vscode-spotless-gradle/*.vsix)
+
+      - name: Cleaning Repo ${{ inputs.module }}
+        env: 
+          CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
+        if: success()
+        run: ./scripts/cs.cleanup-packages.sh ${{ inputs.module }} 2
