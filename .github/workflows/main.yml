@@ -71,7 +71,7 @@ jobs:
         env: 
           CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
         if: ${{ github.ref == 'refs/heads/main' && inputs.module == 'vscode-java' }}
-        run: ./scripts/upload-to-cloudsmith.sh $(ls ./extensions/vscode-java/*.vsix)
+        run: ./scripts/cs.upload.sh $(ls ./extensions/vscode-java/*.vsix)
 
       - name: Build vscode-java-debug
         run: ./scripts/build-vscode-java-debug.sh
@@ -81,7 +81,7 @@ jobs:
         env: 
           CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
         if: ${{ github.ref == 'refs/heads/main' && inputs.module == 'vscode-java-debug' }}
-        run: ./scripts/upload-to-cloudsmith.sh $(ls ./extensions/vscode-java-debug/*.vsix)
+        run: ./scripts/cs.upload.sh $(ls ./extensions/vscode-java-debug/*.vsix)
 
       - name: Build vscode-java-test
         run: ./scripts/build-vscode-java-test.sh
@@ -91,7 +91,7 @@ jobs:
         env: 
           CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
         if: ${{ github.ref == 'refs/heads/main' && inputs.module == 'vscode-java-test' }}
-        run: ./scripts/upload-to-cloudsmith.sh $(ls ./extensions/vscode-java-test/*.vsix)
+        run: ./scripts/cs.upload.sh $(ls ./extensions/vscode-java-test/*.vsix)
 
       - name: Build vscode-gradle
         run: ./scripts/build-vscode-gradle.sh
@@ -101,7 +101,7 @@ jobs:
         env: 
           CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
         if: ${{ github.ref == 'refs/heads/main' && inputs.module == 'vscode-gradle' }}
-        run: ./scripts/upload-to-cloudsmith.sh $(ls ./extensions/vscode-gradle/extension/*.vsix)
+        run: ./scripts/cs.upload.sh $(ls ./extensions/vscode-gradle/extension/*.vsix)
 
       - name: Build vscode-spotless-gradle
         run: ./scripts/build-vscode-spotless.sh
@@ -111,7 +111,7 @@ jobs:
         env: 
           CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
         if: ${{ github.ref == 'refs/heads/main' && inputs.module == 'vscode-spotless-gradle' }}
-        run: ./scripts/upload-to-cloudsmith.sh $(ls ./extensions/vscode-spotless-gradle/*.vsix)
+        run: ./scripts/cs.upload.sh $(ls ./extensions/vscode-spotless-gradle/*.vsix)
 
       - name: Cleaning Repo ${{ inputs.module }}
         env: 

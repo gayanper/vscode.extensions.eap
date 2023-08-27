@@ -13,7 +13,7 @@ if [ -z $keep ]; then
     keep="2"
 fi
 
-package_list=($(cloudsmith list packages $REPO -q "name:^$name" -F json | jq -R 'fromjson? | .data[].slug'))
+package_list=($(cloudsmith list packages $REPO -q "name:^$name-" -F json | jq -R 'fromjson? | .data[].slug'))
 length=${#package_list[*]}
 if [[ length -lt keep ]]; then
     exit 0
