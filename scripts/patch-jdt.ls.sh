@@ -1,5 +1,5 @@
 #!/bin/bash
-declare -a FILE_PATTERNS=(".*/org\.eclipse\.jdt\.core_.*\.jar" ".*/org\.eclipse\.jdt\.core.\manipulation_.*\.jar" ".*/org\.eclipse\.jdt\.core\.compiler\.batch_.*\.jar" ".*/org\.eclipse\.jdt\.launching_.*\.jar" ".*/org\.eclipse\.jdt\.launching\.macosx_.*\.jar" ".*/org\.eclipse\.jdt\.junit\.runtime_.*\.jar" ".*/org\.eclipse\.jdt\.junit\.core_.*\.jar" ".*/org\.eclipse\.jdt\.debug_.*\.jar" ".*/org\.eclipse\.jdt\.apt\.pluggable\.core_.*\.jar" ".*/org\.eclipse\.jdt\.apt\.core_.*\.jar")
+declare -a FILE_PATTERNS=(".*/org\.eclipse\.jdt\.core_.*\.jar" ".*/org\.eclipse\.jdt\.core.\manipulation_.*\.jar" ".*/org\.eclipse\.jdt\.core\.compiler\.batch_.*\.jar" ".*/org\.eclipse\.jdt\.launching_.*\.jar" ".*/org\.eclipse\.jdt\.launching\.macosx_.*\.jar" ".*/org\.eclipse\.jdt\.junit\.runtime_.*\.jar" ".*/org\.eclipse\.jdt\.junit\.core_.*\.jar" ".*/org\.eclipse\.jdt\.debug_.*\.jar" ".*/org\.eclipse\.jdt\.apt\.pluggable\.core_.*\.jar" ".*/org\.eclipse\.jdt\.apt\.core_.*\.jar" ".*/org\.eclipse\.search\.core_.*\.jar")
 
 #declare -a FILE_PATTERNS=(".*/org\.eclipse\.jdt\.core_.*\.jar" ".*/org\.eclipse\.jdt\.core.\manipulation_.*\.jar" ".*/org\.eclipse\.jdt\.core\.compiler\.batch_.*\.jar" ".*/org\.eclipse\.jdt\.debug_.*\.jar")
 
