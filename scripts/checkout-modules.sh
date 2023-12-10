@@ -1,8 +1,17 @@
 #!/bin/bash
 
 function clone_repo {
-    echo "cloning $1 into $2"
-    git clone $1 $2
+    directory=$2
+    url=$1
+
+    if [ "$url" != "skip" ]; then
+        echo "cloning $url into $directory"
+        if [ -d $directory ]; then
+            rm -rf $directory
+        fi 
+
+        git clone $url $directory
+    fi
 }
 
 

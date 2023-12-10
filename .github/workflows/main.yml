@@ -59,38 +59,46 @@ jobs:
         run: ./scripts/checkout-modules.sh
 
       - name: Merge PRs
+        id: merge_prs
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: ./scripts/merge-prs.sh ${{ github.event.inputs.ignore_merge_conflicts }}
 
+      - name: Build jdt
+        id: jdt
+        run: ./scripts/build-jdt.sh
+        if: ${{ inputs.module == 'vscode-java' && steps.merge_prs.outcome == 'success' }}
+
       - name: Build vscode-java
         run: ./scripts/build-vscode-java.sh
-        if: ${{ inputs.module == 'vscode-java' }}
+        if: ${{ inputs.module == 'vscode-java' && steps.jdt.outcome == 'success' }}
       
       - name: Deploy vscode-java
+        id: java_ls
         env: 
           CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
-        if: ${{ github.ref == 'refs/heads/main' && inputs.module == 'vscode-java' }}
+        if: ${{ github.ref == 'refs/heads/main' && inputs.module == 'vscode-java' && steps.jdt.outcome == 'success' }}
         run: ./scripts/cs.upload.sh $(ls ./extensions/vscode-java/*.vsix)
 
       - name: Build vscode-java-debug
+        id: java_debug
         run: ./scripts/build-vscode-java-debug.sh
-        if: ${{ inputs.module == 'vscode-java-debug' }}
+        if: ${{ inputs.module == 'vscode-java' && steps.jdt.outcome == 'success' }}
       
       - name: Deploy vscode-java-debug
         env: 
           CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
-        if: ${{ github.ref == 'refs/heads/main' && inputs.module == 'vscode-java-debug' }}
+        if: ${{ github.ref == 'refs/heads/main' && inputs.module == 'vscode-java' && steps.jdt.outcome == 'success' }}
         run: ./scripts/cs.upload.sh $(ls ./extensions/vscode-java-debug/*.vsix)
 
       - name: Build vscode-java-test
         run: ./scripts/build-vscode-java-test.sh
-        if: ${{ inputs.module == 'vscode-java-test' }}
+        if: ${{ inputs.module == 'vscode-java' && steps.jdt.outcome == 'success' }}
       
       - name: Deploy vscode-java-test
         env: 
           CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
-        if: ${{ github.ref == 'refs/heads/main' && inputs.module == 'vscode-java-test' }}
+        if: ${{ github.ref == 'refs/heads/main' && inputs.module == 'vscode-java' && steps.jdt.outcome == 'success' }}
         run: ./scripts/cs.upload.sh $(ls ./extensions/vscode-java-test/*.vsix)
 
       - name: Build vscode-gradle

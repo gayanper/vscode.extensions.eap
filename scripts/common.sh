@@ -86,6 +86,20 @@ function apply_git_patches_by_regex {
     done
 }
 
+function patch_target_file {
+    file_path=$1
+    placeholder=$2
+    p2_path=$3
+
+    if [[ -f $file_path ]]; then
+        echo "Patching file $file_path"
+        sed -i "s/$placeholder/$p2_path/g" $file_path
+    else
+        echo "File $file_path not found, terminating."
+        exit 100
+    fi
+}
+
 # Start VSCodium 
 # from https://github.com/VSCodium/vscodium/blob/master/prepare_vscode.sh
 function setpath() {
