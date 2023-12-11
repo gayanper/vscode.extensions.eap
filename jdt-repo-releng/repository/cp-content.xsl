@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- Copied from https://github.com/eclipse-platform/eclipse.platform.releng.aggregator/blob/888de3410f302c380ca3f7c0fabcc225d6a0fa39/eclipse.platform.releng.tychoeclipsebuilder/eclipse.platform.repository/cp-content.xsl -->
 <xsl:stylesheet
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   version="1.0">
