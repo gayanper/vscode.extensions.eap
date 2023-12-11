@@ -94,7 +94,7 @@ function patch_target_file {
 
     if [[ -f $file_path ]]; then
         echo "Patching file $file_path"
-        sed -i "s/ \"${placeholder}\"/ \"${p2_path}\"/g" $file_path
+        sed -i "s/$placeholder/$p2_path/" $file_path
     else
         echo "File $file_path not found, terminating."
         exit 100

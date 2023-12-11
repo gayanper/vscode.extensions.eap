@@ -28,7 +28,7 @@
             <unit id="org.eclipse.sdk.feature.group" version="0.0.0" />
             <unit id="org.mockito.mockito-core" version="0.0.0" />
             <unit id="org.apache.commons.commons-io" version="0.0.0" />
-            <repository location="JDT_P2" />
+            <repository location="file:///home/runner/work/vscode.extensions.eap/vscode.extensions.eap/jdt-repo-releng/repository/target/repository" />
         </location>
         <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true"
             type="InstallableUnit">

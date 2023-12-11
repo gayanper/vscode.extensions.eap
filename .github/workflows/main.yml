@@ -10,8 +10,6 @@ on:
         type: choice
         options:
           - "vscode-java"
-          - "vscode-java-debug"
-          - "vscode-java-test"
           - "vscode-gradle"
           - "vscode-spotless-gradle"
 
@@ -35,7 +33,7 @@ jobs:
       - name: Setup Maven
         uses: stCarolas/setup-maven@v4.3
         with:
-          maven-version: 3.8.4
+          maven-version: 3.9.0
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v3.4.1

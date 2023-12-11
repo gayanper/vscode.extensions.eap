@@ -15,6 +15,7 @@ new_version="${version%.*}.$(date +%y%m%d%H%M%S)"
 # Linux
 sed -i "s/ \"${current_version}\"/ \"${new_version}\"/g" "package.json"
 
+export MAVEN_OPTS="-DskipTests=true -Dtycho.plugin-test.skip=true -DskipITs=true"
 npm install && npm run build-plugin && vsce package
 
 cd ./../../
