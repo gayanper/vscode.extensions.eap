@@ -1,7 +1,8 @@
 name: Build and Deploy
 
 on:
-  # Allows you to run this workflow manually from the Actions tab
+  schedule:
+  - cron: '0 5 * * 1-5'
   workflow_dispatch:
     inputs:
       module:
