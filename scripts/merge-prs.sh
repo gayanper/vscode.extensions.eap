@@ -15,12 +15,14 @@ do
     repo_value=$(read_value $repo)
     cd ./$repo_key
     
-    echo "Applying $repo_key PRs"
-    read_refs $work_dir"/patches/"$repo_key".txt"
-    for ref in "${read_refs_val[@]}"
-    do
-        cherry_pick_pr $ref $ignore_merge_errors
-    done
+    if [ -f $work_dir"/patches/"$repo_key".txt" ]; then
+        echo "Applying $repo_key PRs"
+        read_refs $work_dir"/patches/"$repo_key".txt"
+        for ref in "${read_refs_val[@]}"
+        do
+            cherry_pick_pr $ref $ignore_merge_errors
+        done
+    fi
 
     # apply patch files
     apply_git_patches_by_regex $work_dir $repo_key
