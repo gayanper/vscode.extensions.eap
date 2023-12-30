@@ -82,77 +82,6 @@
           </environments>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.eclipse.tycho</groupId>
-        <artifactId>tycho-source-plugin</artifactId>
-        <configuration>
-          <archive>
-            <addMavenDescriptor>false</addMavenDescriptor>
-          </archive>
-        </configuration>
-        <executions>
-          <execution>
-            <id>plugin-source</id>
-            <goals>
-              <goal>plugin-source</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-resources-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>filter-resources</id>
-            <goals>
-              <goal>resources</goal>
-            </goals>
-            <phase>process-resources</phase>
-            <configuration>
-              <outputDirectory>${project.build.directory}/resources</outputDirectory>
-              <escapeString>\</escapeString>
-            </configuration>
-          </execution>
-          <execution>
-            <id>saveproperties</id>
-            <configuration>
-              <outputDirectory>${project.build.directory}</outputDirectory>
-              <overwrite>true</overwrite>
-              <resources>
-                <resource>
-                  <directory>saveproperties</directory>
-                  <filtering>true</filtering>
-                </resource>
-              </resources>
-            </configuration>
-            <phase>validate</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.4.1</version>
-        <executions>
-          <execution>
-            <id>enforce-maven</id>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-            <configuration>
-              <rules>
-                <requireMavenVersion>
-                  <version>3.9.0</version>
-                </requireMavenVersion>
-              </rules>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
   </build>
 
@@ -177,10 +106,6 @@
   <modules>
     <module>prereqs.target</module>
     <module>repository</module>
-    <module>../extensions/jdt.core</module>
-    <module>../extensions/jdt.debug</module>
-    <module>../extensions/jdt.ui</module>
-    <module>../extensions/jdt.feature</module>
   </modules>
 
 </project>

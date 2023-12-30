@@ -37,6 +37,7 @@
                 <configuration>
                     <includeAllDependencies>true</includeAllDependencies>
                     <includeAllSources>true</includeAllSources>
+                    <skipArchive>true</skipArchive>
                 </configuration>
             </plugin>
             <plugin>
@@ -107,35 +108,38 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.eclipse.tycho.extras</groupId>
                 <artifactId>tycho-p2-extras-plugin</artifactId>
                 <version>${tycho.version}</version>
                 <executions>
                     <execution>
                         <id>mirror-build</id>
-                        <phase>generate-resources</phase>
+                        <phase>post-package</phase>
                         <goals>
                             <goal>mirror</goal>
                         </goals>
                         <configuration>
-                            <source>
-                                <repository>
-                                    <url>https://download.eclipse.org/eclipse/updates/4.31-I-builds/</url>
-                                    <layout>p2</layout>
-                                </repository>
-                            </source>
                             <destination>${project.build.directory}/repository</destination>
                             <followStrictOnly>false</followStrictOnly>
-                            <includeOptional>false</includeOptional>
+                            <includeOptional>true</includeOptional>
                             <includeNonGreedy>true</includeNonGreedy>
                             <latestVersionOnly>true</latestVersionOnly>
                             <mirrorMetadataOnly>false</mirrorMetadataOnly>
                             <compress>true</compress>
                             <append>true</append>
+                            <targetPlatformAsSource>true</targetPlatformAsSource>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin> -->
+            <plugin>
+                <groupId>org.eclipse.tycho</groupId>
+                <artifactId>tycho-p2-plugin</artifactId>
+                <version>${tycho.version}</version>
+                <configuration>
+                    <generateChecksums>false</generateChecksums>
+                </configuration>
             </plugin>
         </plugins>
     </build>

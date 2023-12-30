@@ -8,4 +8,3 @@ vscode-spotless-gradle=https://github.com/badsyntax/vscode-spotless-gradle.git
 jdt.core=https://github.com/eclipse-jdt/eclipse.jdt.core.git
 jdt.debug=https://github.com/eclipse-jdt/eclipse.jdt.debug.git
 jdt.ui=https://github.com/eclipse-jdt/eclipse.jdt.ui.git
-jdt.feature=https://github.com/eclipse-jdt/eclipse.jdt.git
