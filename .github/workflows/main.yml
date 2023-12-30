@@ -64,7 +64,9 @@ jobs:
 
       - name: Build jdt
         id: jdt
-        run: ./scripts/build-jdt.sh
+        run: |
+          ./scripts/build-jdt.sh
+          ./scripts/patch-p2-repo.sh
         if: ${{ inputs.module == 'vscode-java' && steps.merge_prs.outcome == 'success' }}
 
       - name: Build vscode-java
