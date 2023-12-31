@@ -8,8 +8,7 @@ cd ./extensions/
 mvn -f ./jdt.core/ verify -Pbuild-individual-bundles -DskipTests && \
     mvn -f ./jdt.debug/ verify -Pbuild-individual-bundles -DskipTests && \
     mvn -f ./jdt.ui/ verify -Pbuild-individual-bundles -DskipTests && \
-    mkdir -p ./../patch-wkdir/p2-repository/ && \
-    mvn -f ./jdt-repo-releng/pom.xml clean verify
+    mvn -f ../jdt-repo-releng/pom.xml clean verify
 
 cd ./../
 echo "## Building JDT done"
