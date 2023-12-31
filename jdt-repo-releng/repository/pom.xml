@@ -36,7 +36,7 @@
                 <artifactId>tycho-p2-repository-plugin</artifactId>
                 <configuration>
                     <includeAllDependencies>true</includeAllDependencies>
-                    <includeAllSources>true</includeAllSources>
+                    <includeAllSources>false</includeAllSources>
                     <skipArchive>true</skipArchive>
                 </configuration>
             </plugin>
@@ -108,31 +108,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- <plugin>
-                <groupId>org.eclipse.tycho.extras</groupId>
-                <artifactId>tycho-p2-extras-plugin</artifactId>
-                <version>${tycho.version}</version>
-                <executions>
-                    <execution>
-                        <id>mirror-build</id>
-                        <phase>post-package</phase>
-                        <goals>
-                            <goal>mirror</goal>
-                        </goals>
-                        <configuration>
-                            <destination>${project.build.directory}/repository</destination>
-                            <followStrictOnly>false</followStrictOnly>
-                            <includeOptional>true</includeOptional>
-                            <includeNonGreedy>true</includeNonGreedy>
-                            <latestVersionOnly>true</latestVersionOnly>
-                            <mirrorMetadataOnly>false</mirrorMetadataOnly>
-                            <compress>true</compress>
-                            <append>true</append>
-                            <targetPlatformAsSource>true</targetPlatformAsSource>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin> -->
             <plugin>
                 <groupId>org.eclipse.tycho</groupId>
                 <artifactId>tycho-p2-plugin</artifactId>
