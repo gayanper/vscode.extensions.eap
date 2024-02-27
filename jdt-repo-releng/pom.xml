@@ -82,6 +82,33 @@
           </environments>
         </configuration>
       </plugin>
+      <plugin>
+        <artifactId>tycho-p2-extras-plugin</artifactId>
+        <groupId>org.eclipse.tycho.extras</groupId>
+        <configuration>
+          <source>
+            <source>
+              <id>jdt</id>
+              <url>https://download.eclipse.org/jdtls/jdt-core-incubator/snapshots/</url>
+              <layout>p2</layout>
+            </source>
+            <!-- <source>
+              <id>eclipse</id>
+              <url>https://download.eclipse.org/eclipse/updates/4.31-I-builds/I20240207-1800/</url>
+              <layout>p2</layout>
+            </source> -->
+          </source>
+        </configuration>
+        <executions>
+          <execution>
+            <id>mirror</id>
+            <phase>package</phase>
+            <goals>
+              <goal>mirror</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 
@@ -102,10 +129,4 @@
       </repositories>
     </profile>
   </profiles>
-
-  <modules>
-    <module>prereqs.target</module>
-    <module>repository</module>
-  </modules>
-
 </project>
