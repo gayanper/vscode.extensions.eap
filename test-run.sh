@@ -12,4 +12,5 @@ echo "## Patch Phase"
 ./scripts/merge-prs.sh
 
 echo "## Build Phase"
-./scripts/build-vscode-java.sh
+./scripts/build-jdt.sh && \
+    ./scripts/build-vscode-java.sh
