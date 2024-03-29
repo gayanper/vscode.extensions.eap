@@ -6,10 +6,13 @@ echo "## Patching P2 Repository"
 # first verify to make sure the repo we just created from the upstream is valid, that is all checksums are correct
 # then patch files and remove checksums again check the repo to make sure its still valid
 
-mvn -f ./jdt-repo-releng/pom.xml org.eclipse.tycho:tycho-p2-repository-plugin:4.0.4:verify-repository && \
+mvn -f ./jdt-repo-releng/pom.xml org.eclipse.tycho:tycho-p2-repository-plugin:4.0.4:verify-repository -Dp2.repository.location=./jdt-repo-releng/target/repository-jdtincu && \
+    mvn -f ./jdt-repo-releng/pom.xml org.eclipse.tycho:tycho-p2-repository-plugin:4.0.4:verify-repository -Dp2.repository.location=./jdt-repo-releng/target/repository-eclipse && \
     /usr/bin/python3 $script_dir/patch-p2-repository.py && \
-    mvn -f ./jdt-repo-releng/pom.xml org.eclipse.tycho:tycho-p2-repository-plugin:4.0.4:fix-artifacts-metadata && \
-    mvn -f ./jdt-repo-releng/pom.xml org.eclipse.tycho:tycho-p2-repository-plugin:4.0.4:verify-repository
+    mvn -f ./jdt-repo-releng/pom.xml org.eclipse.tycho:tycho-p2-repository-plugin:4.0.4:fix-artifacts-metadata -Dp2.repository.location=./jdt-repo-releng/target/repository-jdtincu && \
+    mvn -f ./jdt-repo-releng/pom.xml org.eclipse.tycho:tycho-p2-repository-plugin:4.0.4:fix-artifacts-metadata -Dp2.repository.location=./jdt-repo-releng/target/repository-eclipse && \
+    mvn -f ./jdt-repo-releng/pom.xml org.eclipse.tycho:tycho-p2-repository-plugin:4.0.4:verify-repository -Dp2.repository.location=./jdt-repo-releng/target/repository-jdtincu && \
+    mvn -f ./jdt-repo-releng/pom.xml org.eclipse.tycho:tycho-p2-repository-plugin:4.0.4:verify-repository -Dp2.repository.location=./jdt-repo-releng/target/repository-eclipse
 
 echo "## Patching P2 Repository done"
 

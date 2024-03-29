@@ -37,7 +37,7 @@
             <unit id="org.eclipse.jdt.core" version="0.0.0" />
             <unit id="org.eclipse.jdt.apt.core" version="0.0.0" />
             <repository
-                location="file:///home/runner/work/vscode.extensions.eap/vscode.extensions.eap/jdt-repo-releng/target/repository-jdtincu"
+                location="file:///home/runner/work/vscode.extensions.eap/vscode.extensions.eap/jdt-repo-releng/target/repository-eclipse"
             />
         </location>
         <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true"
