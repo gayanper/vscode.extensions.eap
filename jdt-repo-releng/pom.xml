@@ -113,7 +113,7 @@
               <source>
                 <source>
                   <id>eclipse</id>
-                  <url>https://download.eclipse.org/eclipse/updates/4.32-I-builds/I20240325-1800/</url>
+                  <url>https://download.eclipse.org/eclipse/updates/4.32-I-builds/</url>
                   <layout>p2</layout>
                 </source>
               </source>
