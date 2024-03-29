@@ -1,7 +1,8 @@
 import os
 import zipfile
 
-P2_REPOSITORY = './jdt-repo-releng/repository/target/repository'
+P2_REPOSITORY_JDTINCU = './jdt-repo-releng/repository/target/repository-jdtincu'
+P2_REPOSITORY_ECLIPSE = './jdt-repo-releng/repository/target/repository-eclipse'
 
 dirs = ['./extensions/jdt.core', './extensions/jdt.debug', './extensions/jdt.ui']
 # find all *.jar files in the above directories recursively in dirs variable
@@ -16,7 +17,14 @@ for dir in dirs:
                 name = file.split('-')[0]
                 source_jar_map.update({name: os.path.abspath(os.path.join(root, file))})
                 
-for root, subdirs, files in os.walk(os.path.join(P2_REPOSITORY, 'plugins')):
+for root, subdirs, files in os.walk(os.path.join(P2_REPOSITORY_ECLIPSE, 'plugins')):
+    for file in files:
+        if file.endswith('.jar'):
+            name = file.split('_')[0]
+            repo_jar_map.update({name: os.path.abspath(os.path.join(root, file))})
+
+# processing after eclipse will make sure we update the incubator instead of eclipse
+for root, subdirs, files in os.walk(os.path.join(P2_REPOSITORY_JDTINCU, 'plugins')):
     for file in files:
         if file.endswith('.jar'):
             name = file.split('_')[0]

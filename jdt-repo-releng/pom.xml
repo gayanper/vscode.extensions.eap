@@ -85,27 +85,40 @@
       <plugin>
         <artifactId>tycho-p2-extras-plugin</artifactId>
         <groupId>org.eclipse.tycho.extras</groupId>
-        <configuration>
-          <source>
-            <source>
-              <id>jdt</id>
-              <url>https://download.eclipse.org/jdtls/jdt-core-incubator/snapshots/</url>
-              <layout>p2</layout>
-            </source>
-            <!-- <source>
-              <id>eclipse</id>
-              <url>https://download.eclipse.org/eclipse/updates/4.31-I-builds/I20240207-1800/</url>
-              <layout>p2</layout>
-            </source> -->
-          </source>
-        </configuration>
         <executions>
           <execution>
-            <id>mirror</id>
+            <id>mirror-jdtincu</id>
             <phase>package</phase>
             <goals>
               <goal>mirror</goal>
             </goals>
+            <configuration>
+              <source>
+                <source>
+                  <id>jdt</id>
+                  <url>https://download.eclipse.org/jdtls/jdt-core-incubator/snapshots/</url>
+                  <layout>p2</layout>
+                </source>
+              </source>
+              <destination>${project.build.directory}/repository-jdtincu</destination>
+            </configuration>
+          </execution>
+          <execution>
+            <id>mirror-eclipse</id>
+            <phase>package</phase>
+            <goals>
+              <goal>mirror</goal>
+            </goals>
+            <configuration>
+              <source>
+                <source>
+                  <id>eclipse</id>
+                  <url>https://download.eclipse.org/eclipse/updates/4.32-I-builds</url>
+                  <layout>p2</layout>
+                </source>
+              </source>
+              <destination>${project.build.directory}/repository-eclipse</destination>
+            </configuration>
           </execution>
         </executions>
       </plugin>

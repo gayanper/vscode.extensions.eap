@@ -26,7 +26,10 @@
             <unit id="org.mockito.mockito-core" version="0.0.0" />
             <unit id="org.apache.commons.commons-io" version="0.0.0" />
             <unit id="org.eclipse.jdt.apt.pluggable.core" version="0.0.0" />
-            <repository location="https://download.eclipse.org/eclipse/updates/4.31/" />
+            <unit id="org.eclipse.equinox.security" version="0.0.0" />
+            <repository
+                location="file:///home/runner/work/vscode.extensions.eap/vscode.extensions.eap/jdt-repo-releng/target/repository-eclipse"
+            />
         </location>
         <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true"
             type="InstallableUnit">
@@ -34,7 +37,8 @@
             <unit id="org.eclipse.jdt.core" version="0.0.0" />
             <unit id="org.eclipse.jdt.apt.core" version="0.0.0" />
             <repository
-                location="file:///home/runner/work/vscode.extensions.eap/vscode.extensions.eap/jdt-repo-releng/target/repository" />
+                location="file:///home/runner/work/vscode.extensions.eap/vscode.extensions.eap/jdt-repo-releng/target/repository-jdtincu"
+            />
         </location>
         <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true"
             type="InstallableUnit">
