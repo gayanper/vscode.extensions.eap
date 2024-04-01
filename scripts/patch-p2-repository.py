@@ -1,8 +1,8 @@
 import os
 import zipfile
 
-P2_REPOSITORY_JDTINCU = './jdt-repo-releng/repository/target/repository-jdtincu'
-P2_REPOSITORY_ECLIPSE = './jdt-repo-releng/repository/target/repository-eclipse'
+P2_REPOSITORY_JDTINCU = './jdt-repo-releng/target/repository-jdtincu'
+P2_REPOSITORY_ECLIPSE = './jdt-repo-releng/target/repository-eclipse'
 
 dirs = ['./extensions/jdt.core', './extensions/jdt.debug', './extensions/jdt.ui']
 # find all *.jar files in the above directories recursively in dirs variable
