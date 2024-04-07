@@ -1,5 +1,5 @@
 diff --git a/org.eclipse.jdt.core.tests.model/src/org/eclipse/jdt/core/tests/model/CompletionTests17.java b/org.eclipse.jdt.core.tests.model/src/org/eclipse/jdt/core/tests/model/CompletionTests17.java
-index 769d07af8c..77c670cf1b 100644
+index 769d07af8c..68e86bc191 100644
 --- a/org.eclipse.jdt.core.tests.model/src/org/eclipse/jdt/core/tests/model/CompletionTests17.java
 +++ b/org.eclipse.jdt.core.tests.model/src/org/eclipse/jdt/core/tests/model/CompletionTests17.java
 @@ -27,7 +27,7 @@ public class CompletionTests17 extends AbstractJavaModelCompletionTests {
@@ -7,7 +7,7 @@ index 769d07af8c..77c670cf1b 100644
  	private static int keyword_Rel= R_DEFAULT + R_RESOLVED + R_INTERESTING + R_CASE + R_NON_RESTRICTED;
  	static {
 -		 // TESTS_NAMES = new String[]{"test034"};
-+		 TESTS_NAMES = new String[]{"testGH2260"};
++//		 TESTS_NAMES = new String[]{"testGH2260_CaseTypePattern"};
  	}
  
  	public CompletionTests17(String name) {
@@ -23,7 +23,7 @@ index 769d07af8c..77c670cf1b 100644
  		}
  		super.setUpSuite();
  		COMPLETION_PROJECT.setOption(JavaCore.COMPILER_PB_ENABLE_PREVIEW_FEATURES, JavaCore.DISABLED);
-@@ -706,38 +706,54 @@ public class CompletionTests17 extends AbstractJavaModelCompletionTests {
+@@ -706,38 +706,69 @@ public class CompletionTests17 extends AbstractJavaModelCompletionTests {
  
  	}
  
@@ -59,15 +59,27 @@ index 769d07af8c..77c670cf1b 100644
  	}
  
 -	public void testGH2261() throws JavaModelException {
-+	public void testGH2260_CaseTypePattern_Destructor() throws JavaModelException {
- 		this.workingCopies = new ICompilationUnit[1];
+-		this.workingCopies = new ICompilationUnit[1];
 -		this.workingCopies[0] = getWorkingCopy("/Completion/src/SealedI.java", """
 -				public sealed interface SealedI p  {
-+		this.workingCopies[0] = getWorkingCopy("/Completion/src/SwitchTypePattern.java", """
++	public void testGH2260_CaseTypePattern_Destructor() throws JavaModelException {
++		this.workingCopies = new ICompilationUnit[3];
++		this.workingCopies[0] = getWorkingCopy("/Completion/src/Shape.java", """
++				public interface Shape  {
++					public record Circle1(String name, int radius) implements Shape  {
++					}
++	
++				}\
++				""");
++		this.workingCopies[1] = getWorkingCopy("/Completion/src/Circle.java", """
++				public record Circle(String name, int radius) implements Shape  {
++				}\
++				""");
++	
++		this.workingCopies[2] = getWorkingCopy("/Completion/src/SwitchTypePattern.java", """
 +				public class SwitchTypePattern  {
-+					public interface Shape {}
-+					public record Circle(String name, int radius) implements Shape {}
-+
++					public record Circle2(String name, int radius) implements Shape  {
++					}
 +					public foo(Shape s) {
 +						switch(s) {
 +							case Circle
@@ -77,15 +89,21 @@ index 769d07af8c..77c670cf1b 100644
  				""");
  		CompletionTestsRequestor2 requestor = new CompletionTestsRequestor2(true);
  		requestor.allowAllRequiredProposals();
- 		String str = this.workingCopies[0].getSource();
+-		String str = this.workingCopies[0].getSource();
 -		String completeBehind = "SealedI p";
++		String str = this.workingCopies[2].getSource();
 +		String completeBehind = "case Circle";
  		int cursorLocation = str.lastIndexOf(completeBehind) + completeBehind.length();
- 		this.workingCopies[0].codeComplete(cursorLocation, requestor, this.wcOwner);
+-		this.workingCopies[0].codeComplete(cursorLocation, requestor, this.wcOwner);
++		this.workingCopies[2].codeComplete(cursorLocation, requestor, this.wcOwner);
  		assertResults("""
 -				permits[RESTRICTED_IDENTIFIER]{permits, null, null, permits, null, 49}\
-+			[TYPE_PATTERN]{Circle(var name,var radius), LSwitchTypePattern$Circle;, null, null, null, 20}
-+			SwitchTypePattern.Circle[TYPE_REF]{Circle, , LSwitchTypePattern$Circle;, null, null, 76}\
++			[TYPE_PATTERN]{Circle(var name,var radius), LCircle;, null, null, null, 20}
++			[TYPE_PATTERN]{Circle1(var name,var radius), LShape$Circle1;, null, null, null, 20}
++			[TYPE_PATTERN]{Circle2(var name,var radius), LSwitchTypePattern$Circle2;, null, null, null, 20}
++			Shape.Circle1[TYPE_REF]{Shape.Circle1, , LShape$Circle1;, null, null, 49}
++			Circle[TYPE_REF]{Circle, , LCircle;, null, null, 56}
++			SwitchTypePattern.Circle2[TYPE_REF]{Circle2, , LSwitchTypePattern$Circle2;, null, null, 72}\
  					""", requestor.getResults());
 -	}
 +	}	
@@ -105,7 +123,7 @@ index 4fbb8fb335..04ec93a371 100644
  				buffer.append("PROPOSAL"); //$NON-NLS-1$
  				break;
 diff --git a/org.eclipse.jdt.core/codeassist/org/eclipse/jdt/internal/codeassist/CompletionEngine.java b/org.eclipse.jdt.core/codeassist/org/eclipse/jdt/internal/codeassist/CompletionEngine.java
-index e322e384a1..c436780854 100644
+index e322e384a1..14b08fb883 100644
 --- a/org.eclipse.jdt.core/codeassist/org/eclipse/jdt/internal/codeassist/CompletionEngine.java
 +++ b/org.eclipse.jdt.core/codeassist/org/eclipse/jdt/internal/codeassist/CompletionEngine.java
 @@ -205,6 +205,7 @@ import org.eclipse.jdt.internal.compiler.env.ICompilationUnit;
@@ -166,7 +184,16 @@ index e322e384a1..c436780854 100644
  					// if switch with class/interface/record - J17 onwards
  					char[][] keywords = new char[2][];
  					int count = 0;
-@@ -14773,4 +14785,104 @@ public final class CompletionEngine
+@@ -11252,7 +11264,7 @@ public final class CompletionEngine
+ 									if (TypeBinding.equalsEquals(localType, otherType))
+ 										continue next;
+ 								}
+-
++								
+ 								if (this.assistNodeIsExtendedType && localType.isFinal()) continue next;
+ 								if (this.assistNodeIsInterfaceExcludingAnnotation && localType.isAnnotationType()) continue next;
+ 								if(this.assistNodeIsClass) {
+@@ -14773,4 +14785,112 @@ public final class CompletionEngine
  		}
  	}
  
@@ -193,20 +220,24 @@ index e322e384a1..c436780854 100644
 +				final boolean isPatternMatchingSupported = JavaFeature.PATTERN_MATCHING_IN_SWITCH.isSupported(this.compilerOptions);
 +				final boolean isJavaLangString = CharOperation.equals(JAVA_LANG_STRING_SIGNATURE, exprType.signableName());
 +				final boolean isApplicableForPatternMatching = isPatternMatchingSupported && (!isJavaLangString && (exprType.isInterface() || exprType.isClass()));
-+				final ObjectVector typesFound = new ObjectVector();
 +				if (isApplicableForPatternMatching
 +						|| CharOperation.equals(JAVA_LANG_STRING_SIGNATURE, exprType.signableName())) {
 +					findTypesAndPackages(this.completionToken, scope.enclosingMethodScope(), true, false,
-+							typesFound);
++							new ObjectVector());
 +				}
 +
-+				if(isApplicableForPatternMatching) {
-+					typesFound.forEach(o -> {
-+						final ReferenceBinding binding = (ReferenceBinding) o;
-+						if(binding.isRecord()) {
-+							computeDeconstructors(binding);
++				if (isApplicableForPatternMatching) {
++					for (char[] fqn : this.knownTypes.keyTable) {
++						checkCancel();
++						if (fqn == null)
++							continue;
++						char[][] simpleNames = Signature.getSimpleNames(fqn);
++
++						ReferenceBinding binding = (ReferenceBinding) scope.getType(simpleNames, simpleNames.length);
++						if (binding != null && binding.isRecord()) {
++							computeDestructors(binding);
 +						}
-+					});
++					}
 +				}
 +			} else {
 +				// fallback to old behavior for primitives
@@ -215,10 +246,11 @@ index e322e384a1..c436780854 100644
 +		}
 +	}
 +
-+	private void computeDeconstructors(ReferenceBinding recordType) {
++	private void computeDestructors(ReferenceBinding recordType) {
 +		if (this.requestor.isIgnored(CompletionProposal.TYPE_PATTERN)) {
 +			return;
 +		}
++		checkCancel();
 +
 +		char[] typeCompletion = CharOperation.concat(recordType.qualifiedPackageName(),
 +				recordType.qualifiedSourceName(), '.');
@@ -241,7 +273,8 @@ index e322e384a1..c436780854 100644
 +		int relevance = computeRelevanceForConstructor();
 +		relevance += computeRelevanceForExpectingType(recordType);
 +
-+		InternalCompletionProposal typeProposal = createProposal(CompletionProposal.TYPE_REF, this.actualCompletionPosition);
++		InternalCompletionProposal typeProposal = createProposal(CompletionProposal.TYPE_REF,
++				this.actualCompletionPosition);
 +		typeProposal.nameLookup = this.nameEnvironment.nameLookup;
 +		typeProposal.completionEngine = this;
 +		typeProposal.setDeclarationSignature(packageName);
@@ -254,18 +287,20 @@ index e322e384a1..c436780854 100644
 +		typeProposal.setTokenRange(this.startPosition - this.offset, this.endPosition - this.offset);
 +		typeProposal.setRelevance(relevance);
 +
-+		InternalCompletionProposal proposal =  createProposal(CompletionProposal.TYPE_PATTERN, this.actualCompletionPosition);
++		InternalCompletionProposal proposal = createProposal(CompletionProposal.TYPE_PATTERN,
++				this.actualCompletionPosition);
 +		proposal.setCompletion(completion);
 +		proposal.setReplaceRange(this.endPosition - this.offset, this.endPosition - this.offset);
 +		proposal.setTokenRange(this.tokenStart - this.offset, this.tokenEnd - this.offset);
-+		proposal.setRequiredProposals( new CompletionProposal[]{typeProposal});
++		proposal.setRequiredProposals(new CompletionProposal[] { typeProposal });
 +		proposal.setRelevance(relevance);
 +		proposal.setDeclarationSignature(getSignature(recordType));
 +
 +		this.requestor.accept(proposal);
 +	}
 +
-+	private void completionAtInstanceOf(ASTNode astNode, InstanceOfExpression ioExpr, Binding qualifiedBinding, Scope scope) {
++	private void completionAtInstanceOf(ASTNode astNode, InstanceOfExpression ioExpr, Binding qualifiedBinding,
++			Scope scope) {
 +		// use same behavior for now
 +		completionOnSingleTypeReference(astNode, ioExpr, qualifiedBinding, scope);
 +	}
