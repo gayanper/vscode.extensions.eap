@@ -73,7 +73,7 @@ function cherry_pick_pr {
 
 function apply_git_patches_by_regex {
     echo "Apply git patch files for repo $2"
-    patch_pattern=$1"/patches/"$2"*.patch"
+    patch_pattern=$1"/patches/"$2".*.patch"
 
     for p in $(ls $patch_pattern 2>/dev/null)
     do
