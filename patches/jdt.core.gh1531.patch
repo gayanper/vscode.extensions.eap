@@ -123,7 +123,7 @@ index 4fbb8fb335..04ec93a371 100644
  				buffer.append("PROPOSAL"); //$NON-NLS-1$
  				break;
 diff --git a/org.eclipse.jdt.core/codeassist/org/eclipse/jdt/internal/codeassist/CompletionEngine.java b/org.eclipse.jdt.core/codeassist/org/eclipse/jdt/internal/codeassist/CompletionEngine.java
-index e322e384a1..14b08fb883 100644
+index e322e384a1..ba7510bb8d 100644
 --- a/org.eclipse.jdt.core/codeassist/org/eclipse/jdt/internal/codeassist/CompletionEngine.java
 +++ b/org.eclipse.jdt.core/codeassist/org/eclipse/jdt/internal/codeassist/CompletionEngine.java
 @@ -205,6 +205,7 @@ import org.eclipse.jdt.internal.compiler.env.ICompilationUnit;
@@ -290,7 +290,7 @@ index e322e384a1..14b08fb883 100644
 +		InternalCompletionProposal proposal = createProposal(CompletionProposal.TYPE_PATTERN,
 +				this.actualCompletionPosition);
 +		proposal.setCompletion(completion);
-+		proposal.setReplaceRange(this.endPosition - this.offset, this.endPosition - this.offset);
++		proposal.setReplaceRange(this.startPosition - this.offset, this.endPosition - this.offset);
 +		proposal.setTokenRange(this.tokenStart - this.offset, this.tokenEnd - this.offset);
 +		proposal.setRequiredProposals(new CompletionProposal[] { typeProposal });
 +		proposal.setRelevance(relevance);
