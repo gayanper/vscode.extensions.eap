@@ -1,5 +1,5 @@
 diff --git a/org.eclipse.jdt.core.tests.model/src/org/eclipse/jdt/core/tests/model/CompletionTests17.java b/org.eclipse.jdt.core.tests.model/src/org/eclipse/jdt/core/tests/model/CompletionTests17.java
-index 769d07af8c..68e86bc191 100644
+index 769d07af8c..9f09b7ecfb 100644
 --- a/org.eclipse.jdt.core.tests.model/src/org/eclipse/jdt/core/tests/model/CompletionTests17.java
 +++ b/org.eclipse.jdt.core.tests.model/src/org/eclipse/jdt/core/tests/model/CompletionTests17.java
 @@ -27,7 +27,7 @@ public class CompletionTests17 extends AbstractJavaModelCompletionTests {
@@ -7,7 +7,7 @@ index 769d07af8c..68e86bc191 100644
  	private static int keyword_Rel= R_DEFAULT + R_RESOLVED + R_INTERESTING + R_CASE + R_NON_RESTRICTED;
  	static {
 -		 // TESTS_NAMES = new String[]{"test034"};
-+//		 TESTS_NAMES = new String[]{"testGH2260_CaseTypePattern"};
++		 TESTS_NAMES = new String[]{"testGH2260_CaseTypePattern"};
  	}
  
  	public CompletionTests17(String name) {
@@ -98,9 +98,9 @@ index 769d07af8c..68e86bc191 100644
 +		this.workingCopies[2].codeComplete(cursorLocation, requestor, this.wcOwner);
  		assertResults("""
 -				permits[RESTRICTED_IDENTIFIER]{permits, null, null, permits, null, 49}\
-+			[TYPE_PATTERN]{Circle(var name,var radius), LCircle;, null, null, null, 20}
-+			[TYPE_PATTERN]{Circle1(var name,var radius), LShape$Circle1;, null, null, null, 20}
-+			[TYPE_PATTERN]{Circle2(var name,var radius), LSwitchTypePattern$Circle2;, null, null, null, 20}
++			[TYPE_PATTERN]{Circle(String name,int radius), LCircle;, null, null, null, 20}
++			[TYPE_PATTERN]{Circle1(String name,int radius), LShape$Circle1;, null, null, null, 20}
++			[TYPE_PATTERN]{Circle2(String name,int radius), LSwitchTypePattern$Circle2;, null, null, null, 20}
 +			Shape.Circle1[TYPE_REF]{Shape.Circle1, , LShape$Circle1;, null, null, 49}
 +			Circle[TYPE_REF]{Circle, , LCircle;, null, null, 56}
 +			SwitchTypePattern.Circle2[TYPE_REF]{Circle2, , LSwitchTypePattern$Circle2;, null, null, 72}\
@@ -123,7 +123,7 @@ index 4fbb8fb335..04ec93a371 100644
  				buffer.append("PROPOSAL"); //$NON-NLS-1$
  				break;
 diff --git a/org.eclipse.jdt.core/codeassist/org/eclipse/jdt/internal/codeassist/CompletionEngine.java b/org.eclipse.jdt.core/codeassist/org/eclipse/jdt/internal/codeassist/CompletionEngine.java
-index e322e384a1..ba7510bb8d 100644
+index e322e384a1..f97ad4e2e8 100644
 --- a/org.eclipse.jdt.core/codeassist/org/eclipse/jdt/internal/codeassist/CompletionEngine.java
 +++ b/org.eclipse.jdt.core/codeassist/org/eclipse/jdt/internal/codeassist/CompletionEngine.java
 @@ -205,6 +205,7 @@ import org.eclipse.jdt.internal.compiler.env.ICompilationUnit;
@@ -262,7 +262,7 @@ index e322e384a1..ba7510bb8d 100644
 +		builder.append("("); //$NON-NLS-1$
 +		for (int i = 0; i < componentsLength; i++) {
 +			RecordComponentBinding comp = recordType.components()[i];
-+			builder.append(VAR).append(' ').append(comp.readableName());
++			builder.append(comp.type.shortReadableName()).append(' ').append(comp.readableName());
 +			if (i < (componentsLength - 1)) {
 +				builder.append(',');
 +			}
