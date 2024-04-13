@@ -14,4 +14,5 @@ fi
 
 echo "## Build Phase"
 ./scripts/build-jdt.sh && \
+    ./scripts/patch-p2-repo.sh && \
     ./scripts/build-vscode-java.sh
