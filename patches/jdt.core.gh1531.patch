@@ -1,5 +1,5 @@
 diff --git a/org.eclipse.jdt.core/codeassist/org/eclipse/jdt/internal/codeassist/CompletionEngine.java b/org.eclipse.jdt.core/codeassist/org/eclipse/jdt/internal/codeassist/CompletionEngine.java
-index e322e384a1..f97ad4e2e8 100644
+index e322e384a1..07c281acf1 100644
 --- a/org.eclipse.jdt.core/codeassist/org/eclipse/jdt/internal/codeassist/CompletionEngine.java
 +++ b/org.eclipse.jdt.core/codeassist/org/eclipse/jdt/internal/codeassist/CompletionEngine.java
 @@ -205,6 +205,7 @@ import org.eclipse.jdt.internal.compiler.env.ICompilationUnit;
@@ -44,8 +44,8 @@ index e322e384a1..f97ad4e2e8 100644
  			completionOnProvidesImplementationsSingleTypeReference(astNode, astNodeParent, qualifiedBinding, scope);
  		} else if (astNode instanceof CompletionOnSingleTypeReference) {
 -			completionOnSingleTypeReference(astNode, astNodeParent, qualifiedBinding, scope);
-+			if(astNodeParent instanceof InstanceOfExpression ioe) {
-+				completionAtInstanceOf(astNodeParent, ioe, qualifiedBinding, scope);
++			if (astNodeParent instanceof InstanceOfExpression ioe) {
++				completionAtInstanceOf(astNode, ioe, qualifiedBinding, scope);
 +			} else {
 +				completionOnSingleTypeReference(astNode, astNodeParent, qualifiedBinding, scope);
 +			}
