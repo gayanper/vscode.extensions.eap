@@ -31,6 +31,9 @@ for root, subdirs, files in os.walk(os.path.join(P2_REPOSITORY_JDTINCU, 'plugins
             repo_jar_map.update({name: os.path.abspath(os.path.join(root, file))})
 
 for name, source_jar_path in source_jar_map.items():
+    if name.startswith('org.eclipse.jdt.core.tests'):
+        continue
+    
     repo_jar_path = repo_jar_map.get(name)
     if repo_jar_path is not None:
         print('Patching ' + repo_jar_path + ' with ' + source_jar_path)
@@ -41,6 +44,11 @@ for name, source_jar_path in source_jar_map.items():
                 with zipfile.ZipFile(source_jar_path, 'r') as source_jar:
                     repo_name_list = repo_jar.namelist()
                     for file in source_jar.namelist():
+                        if file.startswith('META-INF/services'):
+                            continue
+                        if file == 'META-INF/eclipse.inf' | file == 'META-INF/':
+                            continue
+                        
                         if file.startswith('META-INF'):
                             if not (file.endswith('ECLIPSE_.RSA') or file.endswith('ECLIPSE_.SF')):
                                 repo_jar_w.writestr(file, '')
