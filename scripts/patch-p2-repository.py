@@ -46,7 +46,7 @@ for name, source_jar_path in source_jar_map.items():
                     for file in source_jar.namelist():
                         if file.startswith('META-INF/services'):
                             continue
-                        if file == 'META-INF/eclipse.inf' | file == 'META-INF/':
+                        if file == 'META-INF/eclipse.inf' or file == 'META-INF/':
                             continue
                         
                         if file.startswith('META-INF'):
