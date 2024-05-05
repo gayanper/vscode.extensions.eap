@@ -31,10 +31,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up JDK
+      - name: Set up JDK 17
         uses: actions/setup-java@v1
         with:
           java-version: 17
+        if: ${{ inputs.use_javac_support == false }}
+
+      - name: Set up JDK 22
+        uses: actions/setup-java@v1
+        with:
+          java-version: 22
+        if: ${{ inputs.use_javac_support == true }}
 
       - name: Setup Maven
         uses: stCarolas/setup-maven@v4.3
