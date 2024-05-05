@@ -5,7 +5,11 @@ source $script_dir/common.sh
 echo "## Building JDT"
 cd ./extensions/
 
-git -C ./jdt.core/ pull --no-rebase --no-edit https://github.com/eclipse-jdtls/eclipse-jdt-core-incubator.git dom-with-javac
+if [ "$USE_JAVAC_BRANCH" = "true"]: then
+    git -C ./jdt.core/ pull --no-rebase --no-edit https://github.com/eclipse-jdtls/eclipse-jdt-core-incubator.git dom-with-javac
+else 
+    git -C ./jdt.core/ pull --no-rebase --no-edit https://github.com/eclipse-jdtls/eclipse-jdt-core-incubator.git master
+fi
 
 mvn -f ./jdt.core/ verify -Pbuild-individual-bundles -DskipTests && \
 #    mvn -f ./jdt.debug/ verify -Pbuild-individual-bundles -DskipTests && \

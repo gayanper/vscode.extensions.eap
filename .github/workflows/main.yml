@@ -19,6 +19,12 @@ on:
         type: boolean
         default: false
 
+      use_javac_support:
+        description: 'Use experimental javac branch'
+        required: false
+        type: boolean
+        default: true
+
 jobs:
   # This workflow contains a single job called "build"
   build:
@@ -64,6 +70,8 @@ jobs:
 
       - name: Build jdt
         id: jdt
+        env:
+          USE_JAVAC_BRANCH: ${{ inputs.use_javac_support }}
         run: |
           ./scripts/build-jdt.sh
           ./scripts/patch-p2-repo.sh
