@@ -85,6 +85,8 @@ jobs:
         if: ${{ inputs.module == 'vscode-java' && steps.merge_prs.outcome == 'success' }}
 
       - name: Build vscode-java
+        env:
+          USE_JAVAC_BRANCH: ${{ inputs.use_javac_support }}
         run: ./scripts/build-vscode-java.sh
         if: ${{ inputs.module == 'vscode-java' && steps.jdt.outcome == 'success' }}
       
