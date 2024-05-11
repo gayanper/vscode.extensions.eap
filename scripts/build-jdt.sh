@@ -7,8 +7,6 @@ cd ./extensions/
 
 if [[ "$USE_JAVAC_BRANCH" == "true" ]]; then
     git -C ./jdt.core/ pull --no-rebase --no-edit https://github.com/eclipse-jdtls/eclipse-jdt-core-incubator.git dom-with-javac
-    git -C ./eclipse.jdt.ls/ pull --no-rebase --no-edit https://github.com/fbricon/eclipse.jdt.ls.git javac-poc
-    git -C ./vscode-java/ pull --no-rebase --no-edit https://github.com/fbricon/vscode-java.git javac-poc
 else 
     git -C ./jdt.core/ pull --no-rebase --no-edit https://github.com/eclipse-jdtls/eclipse-jdt-core-incubator.git master
 fi
