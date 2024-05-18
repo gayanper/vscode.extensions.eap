@@ -73,7 +73,7 @@ jobs:
         id: merge_prs
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          PR_SUFFIX: ${{ inputs.use_javac_support == true && "javac" || "" }}
+          PR_SUFFIX: ${{ inputs.use_javac_support == true && 'javac' || '' }}
         run: ./scripts/merge-prs.sh ${{ github.event.inputs.ignore_merge_conflicts }}
 
       - name: Build jdt
