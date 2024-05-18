@@ -27,7 +27,7 @@ do
 
     # add extra patches
     if [ -z "$extra_patch_suffix" ]; then
-        extra_key=$repo_key"."$extra_patch_suffix".txt
+        extra_key=$repo_key"."$extra_patch_suffix".txt"
 
         if [ -f $work_dir"/patches/"$extra_key".txt" ]; then
             echo "Applying $extra_key PRs"
