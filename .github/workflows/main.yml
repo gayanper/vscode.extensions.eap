@@ -10,6 +10,8 @@ on:
         type: choice
         options:
           - "vscode-java"
+          - "vscode-java-debug"
+          - "vscode-java-test"
           - "vscode-gradle"
           - "vscode-spotless-gradle"
 
@@ -100,22 +102,22 @@ jobs:
       - name: Build vscode-java-debug
         id: java_debug
         run: ./scripts/build-vscode-java-debug.sh
-        if: ${{ inputs.module == 'vscode-java' && steps.jdt.outcome == 'success' }}
+        if: ${{ inputs.module == 'vscode-java-debug' && steps.jdt.outcome == 'success' }}
       
       - name: Deploy vscode-java-debug
         env: 
           CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
-        if: ${{ github.ref == 'refs/heads/main' && inputs.module == 'vscode-java' && steps.jdt.outcome == 'success' }}
+        if: ${{ github.ref == 'refs/heads/main' && inputs.module == 'vscode-java-debug' && steps.jdt.outcome == 'success' }}
         run: ./scripts/cs.upload.sh $(ls ./extensions/vscode-java-debug/*.vsix)
 
       - name: Build vscode-java-test
         run: ./scripts/build-vscode-java-test.sh
-        if: ${{ inputs.module == 'vscode-java' && steps.jdt.outcome == 'success' }}
+        if: ${{ inputs.module == 'vscode-java-test' && steps.jdt.outcome == 'success' }}
       
       - name: Deploy vscode-java-test
         env: 
           CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
-        if: ${{ github.ref == 'refs/heads/main' && inputs.module == 'vscode-java' && steps.jdt.outcome == 'success' }}
+        if: ${{ github.ref == 'refs/heads/main' && inputs.module == 'vscode-java-test' && steps.jdt.outcome == 'success' }}
         run: ./scripts/cs.upload.sh $(ls ./extensions/vscode-java-test/*.vsix)
 
       - name: Build vscode-gradle
