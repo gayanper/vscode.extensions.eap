@@ -1,10 +1,10 @@
 vscode-java=https://github.com/redhat-developer/vscode-java.git
 eclipse.jdt.ls=https://github.com/eclipse-jdtls/eclipse.jdt.ls.git
-java-debug=https://github.com/microsoft/java-debug.git
-vscode-java-debug=https://github.com/microsoft/vscode-java-debug.git
-vscode-java-test=https://github.com/microsoft/vscode-java-test.git
-vscode-gradle=https://github.com/microsoft/vscode-gradle.git
-vscode-spotless-gradle=https://github.com/badsyntax/vscode-spotless-gradle.git
+#java-debug=https://github.com/microsoft/java-debug.git
+#vscode-java-debug=https://github.com/microsoft/vscode-java-debug.git
+#vscode-java-test=https://github.com/microsoft/vscode-java-test.git
+#vscode-gradle=https://github.com/microsoft/vscode-gradle.git
+#vscode-spotless-gradle=https://github.com/badsyntax/vscode-spotless-gradle.git
 jdt.core=https://github.com/eclipse-jdt/eclipse.jdt.core.git
 #jdt.debug=https://github.com/eclipse-jdt/eclipse.jdt.debug.git
 #jdt.ui=https://github.com/eclipse-jdt/eclipse.jdt.ui.git

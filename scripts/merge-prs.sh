@@ -15,6 +15,8 @@ do
     repo_key=$(read_key $repo)
     repo_value=$(read_value $repo)
     cd ./$repo_key
+
+    echo "patching repostory $repo_key"
     
     if [ -f $work_dir"/patches/"$repo_key".txt" ]; then
         echo "Applying $repo_key PRs"
@@ -24,24 +26,45 @@ do
             cherry_pick_pr $ref $ignore_merge_errors
         done
     fi
+    
+    echo
+    # apply patch files
+    apply_git_patches_by_regex $work_dir $repo_key
 
-    # add extra patches
-    if [ ! -z "$extra_patch_suffix" ]; then
-        extra_key=$repo_key"."$extra_patch_suffix".txt"
+    echo
+    if [ ! -z $extra_patch_suffix ]; then
+        extra_key=$repo_key"."$extra_patch_suffix
+        # pull any extra branches into before start applying extra patches
+        extra_pull_file=$work_dir"/patches/pull."$extra_key".txt"
+        if [ -f $extra_pull_file ]; then
+            entries=$(read_entries $extra_pull_file)
+            for pull_entry in $entries
+            do
+                pull_branch=$(read_key $pull_entry)
+                pull_url=$(read_value $pull_entry)
+                echo "pulling branch:$pull_branch from repo:$pull_url into $repo_key"
 
-        if [ -f $work_dir"/patches/"$extra_key".txt" ]; then
+                git pull -Xtheirs --no-rebase --no-edit $pull_url $pull_branch
+                if [[ $? -ne 0 ]]; then
+                    echo "::error:: Fail to pull branch: $pull_branch, ignoring."
+                fi
+            done
+        fi
+    
+        echo
+        extra_patch_file=$work_dir"/patches/"$extra_key".txt"
+        # add extra patches
+        if [ -f $extra_patch_file ]; then
             echo "Applying $extra_key PRs"
-            read_refs $work_dir"/patches/"$extra_key".txt"
+            read_refs $extra_patch_file
             for ref in "${read_refs_val[@]}"
             do
                 cherry_pick_pr $ref $ignore_merge_errors
             done
         fi
     fi
-
-    # apply patch files
-    apply_git_patches_by_regex $work_dir $repo_key
-
     cd ../
+    echo
+    echo
 done
 cd $work_dir

@@ -11,6 +11,19 @@ function read_repos {
     done < "$file_path"
 }
 
+function read_entries {
+    entries=()
+    fixlines $1
+    local file_path=$1
+    while IFS='=' read -r key value || [ -n "$key" ]
+    do
+        if [[ $key != \#* ]]; then
+            entries+=("$key:$value")
+        fi
+    done < "$file_path"
+    echo "${entries[@]}"
+}
+
 function read_refs {
     read_refs_val=()
     fixlines $1
@@ -39,14 +52,17 @@ function read_value {
 
 function cherry_pick_pr {
     echo "Applying PR # : $1"
-    mainBranch=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
-    gh pr checkout $1 -b b$1 && git switch $mainBranch
+
+    branch_name=$(compute_branch_name $1)
+    main_branch=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+
+    gh pr checkout $1 -b $branch_name && git switch $main_branch
 
     if [[ $? -ne 0 ]]; then
         echo "::error:: Fail to checkout PR: $1 , ignoring."
     fi
 
-    git merge b$1 --no-edit
+    git merge $branch_name --no-edit
     
     if [[ $? -ne 0 ]]; then
         # try to reset test code and see if the conflicts go away
@@ -69,6 +85,16 @@ function cherry_pick_pr {
             fi
         fi
     fi       
+}
+
+function compute_branch_name {
+    if [[ "$1" == https:* ]]; then
+        #read the last patch segment of the url
+        branch_name=b${1##*/}
+    else 
+        branch_name=b$1
+    fi
+    echo "$branch_name"
 }
 
 function apply_git_patches_by_regex {
