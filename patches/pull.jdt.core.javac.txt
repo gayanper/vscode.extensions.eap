@@ -1,1 +1,1 @@
-dom-with-javac=https://github.com/eclipse-jdtls/eclipse-jdt-core-incubator.git
+#dom-with-javac=https://github.com/eclipse-jdtls/eclipse-jdt-core-incubator.git
