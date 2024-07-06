@@ -2,11 +2,11 @@
 script_dir=$(cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P)
 source $script_dir/common.sh
 
-if [[ "$USE_JAVAC_BRANCH" == "true" ]]; then
-    echo "## Applying vscode-java and jdt.ls javac patches."
-    git -C ./extensions/eclipse.jdt.ls/ pull --no-rebase --no-edit https://github.com/fbricon/eclipse.jdt.ls.git javac-poc
-    git -C ./extensions/vscode-java/ pull --no-rebase --no-edit https://github.com/gayanper/vscode-java.git javac-poc
-fi
+# if [[ "$USE_JAVAC_BRANCH" == "true" ]]; then
+#     echo "## Applying vscode-java and jdt.ls javac patches."
+#     git -C ./extensions/eclipse.jdt.ls/ pull --no-rebase --no-edit https://github.com/fbricon/eclipse.jdt.ls.git javac-poc
+#     git -C ./extensions/vscode-java/ pull --no-rebase --no-edit https://github.com/fbricon/vscode-java.git javac-poc
+# fi
 
 
 echo "## Building vscode-java"
