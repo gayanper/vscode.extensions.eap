@@ -41,13 +41,13 @@
         <groupId>org.eclipse.tycho</groupId>
         <artifactId>target-platform-configuration</artifactId>
         <configuration>
-          <target>
+          <!-- <target>
             <artifact>
               <groupId>org.gap.eclipse.jdt</groupId>
               <artifactId>prereqs-target</artifactId>
               <version>${project.version}</version>
             </artifact>
-          </target>
+          </target> -->
           <environments>
             <environment>
               <os>linux</os>
