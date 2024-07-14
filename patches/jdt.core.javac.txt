@@ -1,1 +1,2 @@
 https://github.com/eclipse-jdtls/eclipse-jdt-core-incubator/pull/465
+https://github.com/eclipse-jdtls/eclipse-jdt-core-incubator/pull/589
