@@ -28,10 +28,6 @@ do
     fi
     
     echo
-    # apply patch files
-    apply_git_patches_by_regex $work_dir $repo_key
-
-    echo
     if [ ! -z $extra_patch_suffix ]; then
         extra_key=$repo_key"."$extra_patch_suffix
         # pull any extra branches into before start applying extra patches
@@ -63,6 +59,11 @@ do
             done
         fi
     fi
+
+    echo
+    # apply patch files using pattern /patches/"<reponame>".*.patch
+    apply_git_patches_by_regex $work_dir $repo_key
+
     cd ../
     echo
     echo
