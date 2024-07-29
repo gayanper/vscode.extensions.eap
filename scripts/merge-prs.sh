@@ -62,11 +62,11 @@ do
 
     echo
     # apply patch files using pattern /patches/"<reponame>".*.patch
-    apply_git_patches_by_regex $work_dir $repo_key
-    
     if [ ! -z "$extra_patch_suffix" ]; then
         extra_key=$repo_key"."$extra_patch_suffix
         apply_git_patches_by_regex $work_dir $extra_key
+    else
+        apply_git_patches_by_regex $work_dir $repo_key
     fi
 
     cd ../
