@@ -97,9 +97,17 @@ jobs:
       - name: Deploy vscode-java
         id: java_ls
         env: 
+          USE_JAVAC_BRANCH: ${{ inputs.use_javac_support }}
           CLOUDSMITH_API_KEY: ${{ secrets.PKG_API_KEY }}
         if: ${{ github.ref == 'refs/heads/main' && inputs.module == 'vscode-java' && steps.jdt.outcome == 'success' }}
-        run: ./scripts/cs.upload.sh $(ls ./extensions/vscode-java/*.vsix)
+        run: |
+          file=$(ls ./extensions/vscode-java/*.vsix | head -1)
+          if [[ "$USE_JAVAC_BRANCH" == "true" ]]; then
+            ofile=$file
+            file=${file%.*}_javac.vsix
+            mv $ofile $file
+          fi
+          ./scripts/cs.upload.sh $file
 
       - name: Build vscode-java-debug
         id: java_debug

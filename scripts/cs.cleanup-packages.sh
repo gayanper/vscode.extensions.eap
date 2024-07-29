@@ -18,7 +18,6 @@ if [ "$name" = "vscode-java" ]; then
     name="java"
 fi
 
-
 package_list=($(cloudsmith list packages $REPO -q "name:^$name-" -F json | jq -R 'fromjson? | .data[].slug'))
 length=${#package_list[*]}
 if [[ length -lt keep ]]; then
