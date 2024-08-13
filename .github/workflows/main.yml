@@ -55,7 +55,7 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v3.4.1
         with:
-          node-version: v16.16.0
+          node-version: v18
 
       - name: Setup Cloudsmith CLI
         run: |
