@@ -15,7 +15,10 @@ function clone_repo {
 }
 
 extra_patch_suffix=$1
-file_prefix=."$extra_patch_suffix"
+file_prefix=""
+if [ ! -z "$extra_patch_suffix" ]; then
+    file_prefix=."$extra_patch_suffix"
+fi
 
 # script start here
 script_dir=$(cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P)
