@@ -14,6 +14,8 @@ function clone_repo {
     fi
 }
 
+extra_patch_suffix=$1
+file_prefix="$extra_patch_suffix".
 
 # script start here
 script_dir=$(cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P)
@@ -22,7 +24,7 @@ source $script_dir/common.sh
 # preparation
 work_dir=$script_dir/../
 cd $work_dir
-repo_file=$work_dir"patches/repos.txt"
+repo_file=$work_dir"patches/"$file_prefix"repos.txt"
 
 mkdir ./extensions/
 cd ./extensions
