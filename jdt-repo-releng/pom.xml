@@ -113,7 +113,7 @@
               <source>
                 <source>
                   <id>eclipse</id>
-                  <url>https://download.eclipse.org/eclipse/updates/4.33-I-builds/</url>
+                  <url>https://download.eclipse.org/eclipse/updates/4.34-I-builds/</url>
                   <layout>p2</layout>
                 </source>
               </source>
