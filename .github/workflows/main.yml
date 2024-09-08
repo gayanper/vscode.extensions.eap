@@ -71,7 +71,7 @@ jobs:
           git config --global user.name "workflows@egithub.com"
 
       - name: Checkout modules
-        run: ./scripts/checkout-modules.sh
+        run: ./scripts/checkout-modules.sh ${{ inputs.use_javac_support == true && 'javac' || '' }}
 
       - name: Merge PRs
         id: merge_prs
