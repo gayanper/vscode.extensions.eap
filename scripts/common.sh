@@ -62,7 +62,7 @@ function cherry_pick_pr {
         echo "::error:: Fail to checkout PR: $1 , ignoring."
     fi
 
-    git merge $branch_name --no-edit
+    git merge $branch_name --no-edit -Xours
     
     if [[ $? -ne 0 ]]; then
         # try to reset test code and see if the conflicts go away
